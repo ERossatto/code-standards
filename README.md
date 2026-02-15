@@ -1,18 +1,5 @@
 (The original README is at ASSIGNMENT.md 😉)
-
-# Introduction for the Hemnet team
-
-Hello hello Hemnet team ☺️.
-
-So. It was a big pleasure for me to work on this assignment.
-I would like to say I had a lot of fun, particularly modeling the domain layer 😇
-
 ## About the existing tests
-
-I did change the implementation of the tests but not the logic it wants to assert.
-So all the IT descriptions are there as they were before.
-I also kept the original implementation commented out.
-But I had to adapt the calls to work with the new implementation of the assignment.
 
 ![test passing](./imgs/tests-print.jpeg)
 
@@ -22,27 +9,15 @@ But I had to adapt the calls to work with the new implementation of the assignme
 
 I did all the domain modelling of this assignment, using domain-driven design.
 
-I'm really happy with the final result,
-(there are always improvements to be done. But it is already really good).
-
-It was super helpful because I started by reading the description of the assignment and sketching the entities and value-objects
-to see how they connect to each other.
-I ended up with different possibilities that I discarded in preference to the current one.
-
-But I remember for example I started with Package being the aggregate, but then some cross dependencies were happening, as the package knowing about its price but price also knowing about the package.
+I remember I started with Package being the aggregate, but then some cross dependencies were happening, as the package knowing about its price but price also knowing about the package.
 
 At the beginning as well, price was a value-object but then I started to challenge it and try different approaches to check how the implementation of the services would look like then (if it was getting way too complex then I was looking back).
 
 I also remember at first I did just a Package entity with a type (Basic, Plus, Premium), but I was not happy with this because these packages are the first thing discussed in the assignment so I want to make them more visible in the domain layer. I was also in doubt whether they should be a value-object or an entity.
 
-Anyway 😃.
-Modelling domains is a thing that I really love 😍.
-I did not have much time to do it here as I would in real life.
-But I did my best and am happy with the result 😇
-
 ## Clean Architecture
 
-I did a folder restructure to follow the simple clean-architecture in the picture.
+I did a folder structure to follow the simple clean-architecture in the picture.
 Normally I would not suffix the layers with the word "layer". But I did for quick review understanding 😃
 
 ### Layers
@@ -98,10 +73,3 @@ Let me exemplify how I used SOLID principles in the domain and application layer
 - **Interface Segregation (I):** small, focused interfaces (`IPriceRepository`, `IPackageRepository`, `IMunicipalityRepository`) expose only the methods each service needs, avoiding fat interfaces.
 
 - **Dependency Inversion (D):** services depend on abstractions, not concretions (e.g., `PriceDomainService` constructor takes `IPriceRepository`, `IPackageRepository`, `IMunicipalityRepository`), while concrete implementations live in infrastructure (`infrastructure-layer/db-sqlite-sequelize/repositories`).
-
-# Final considerations
-
-Thanks again to the Hemnet team for the opportunity of playing with this test assignment.
-I would love to discuss in a follow-up all the aspects of my implementation of it.
-Looking forward to talking to you again.
-See ya
