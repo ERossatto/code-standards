@@ -1,5 +1,4 @@
-import { CreateMunicipalityUseCase } from "../../application-layer/use-cases/municipality/create-municipality.use-case";
-import { GetMunicipalityByNameUseCase } from "../../application-layer/use-cases/municipality/get-municipality-by-name.use-case";
+import { CreateMunicipalityInput } from "../../application-layer/use-cases/municipality/create-municipality.use-case";
 import {
   CreateMunicipalityRequestDto,
   CreateMunicipalityResponseDto,
@@ -7,6 +6,8 @@ import {
 } from "../types";
 import { MunicipalityMapper } from "../mappers";
 import { BadRequestError, NotFoundError } from "../errors/http-errors";
+import { UseCase } from "../../application-layer/use-cases";
+import { Municipality } from "../../domain-layer";
 
 export interface IMunicipalityController {
   createMunicipality(
@@ -19,8 +20,8 @@ export interface IMunicipalityController {
 
 export class MunicipalityController implements IMunicipalityController {
   constructor(
-    private readonly createMunicipalityUseCase: CreateMunicipalityUseCase,
-    private readonly getMunicipalityByNameUseCase: GetMunicipalityByNameUseCase
+    private readonly createMunicipalityUseCase: UseCase<CreateMunicipalityInput, Municipality>, // CreateMunicipalityUseCase,
+    private readonly getMunicipalityByNameUseCase: UseCase<string, Municipality | null>, // GetMunicipalityByNameUseCase
   ) {}
 
   public async createMunicipality(

@@ -1,6 +1,6 @@
-import { AddPackagePriceUseCase } from "../../application-layer/use-cases/package/add-package-price.use-case";
-import { CreatePackageWithPriceUseCase } from "../../application-layer/use-cases/package/create-package-with-price.use-case";
-import { PackageTypeValue } from "../../domain-layer";
+import { AddPackagePriceInput } from "../../application-layer/use-cases/package/add-package-price.use-case";
+import { CreatePackageWithPriceInput } from "../../application-layer/use-cases/package/create-package-with-price.use-case";
+import { PackageTypeValue, Price } from "../../domain-layer";
 import {
   AddPackagePriceRequestDto,
   AddPackagePriceResponseDto,
@@ -9,6 +9,7 @@ import {
 } from "../types";
 import { PackageMapper } from "../mappers";
 import { BadRequestError } from "../errors/http-errors";
+import { UseCase } from "../../application-layer/use-cases";
 
 export interface IPackageController {
   addPackagePrice(
@@ -21,8 +22,8 @@ export interface IPackageController {
 
 export class PackageController implements IPackageController {
   constructor(
-    private readonly addPackagePriceUseCase: AddPackagePriceUseCase,
-    private readonly createPackageWithPriceUseCase: CreatePackageWithPriceUseCase
+    private readonly addPackagePriceUseCase: UseCase<AddPackagePriceInput, Price>, // AddPackagePriceUseCase,
+    private readonly createPackageWithPriceUseCase: UseCase<CreatePackageWithPriceInput, Price> // CreatePackageWithPriceUseCase
   ) {}
 
   public async addPackagePrice(

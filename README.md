@@ -1,13 +1,23 @@
-(The original README is at ASSIGNMENT.md 😉)
+# About the Show Case
+
+A company is selling packages - Basic, Plus, and Premium. The price for each package is updated regularly and a pricing log is kept for all packages. 
+The company is doing well and the feature requests are pouring in! Help us by implementing the following two feature requests made by our coworkers.
+
+## Feature request 1: Municipalities
+Segmenting package prices based on the municipality the package is sold in. In other words, a package should be able to have different prices depending on a municipality.
+
+## Feature request 2: Pricing history
+Simple way to fetch pricing history, given a package, a year and optionally a municipality.
+
 ## About the existing tests
 
 ![test passing](./imgs/tests-print.jpeg)
 
-# Concepts I did use in this assignment
+# Concepts used in this show case
 
 ## Domain-Driven Design (DDD)
 
-I did all the domain modelling of this assignment, using domain-driven design.
+I did all the domain modelling of this show-case, using domain-driven design.
 
 I remember I started with Package being the aggregate, but then some cross dependencies were happening, as the package knowing about its price but price also knowing about the package.
 

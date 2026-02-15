@@ -1,5 +1,5 @@
 import * as express from "express";
-import { ControllerFactory } from "../factories/controller.factory";
+import { DICompositionFactory } from "../../dependency-inversion.factory";
 import { auth } from "../middleware/auth.middleware";
 import { permit } from "../middleware/permit.middleware";
 import { asyncHandler } from "../utils/async-handler";
@@ -15,7 +15,8 @@ router.get(
   auth(),
   permit("price:read"),
   asyncHandler(async (req, res) => {
-    const priceController = ControllerFactory.createPriceController();
+    // each compose...Dependencies() already memoizes with static fields, so controllers are created only once per process and reused.
+    const priceController = DICompositionFactory.composePriceDependencies();
     const result = await priceController.getPriceHistory({
       packageType: String(req.query.packageType),
       year: Number(req.query.year),
@@ -36,7 +37,7 @@ router.get(
   auth(),
   permit("price:read"),
   asyncHandler(async (req, res) => {
-    const priceController = ControllerFactory.createPriceController();
+    const priceController = DICompositionFactory.composePriceDependencies();
     const result = await priceController.getCurrentPrice({
       packageType: String(req.query.packageType),
       municipalityId: req.query.municipalityId
@@ -56,7 +57,7 @@ router.get(
   auth(),
   permit("price:read"),
   asyncHandler(async (req, res) => {
-    const priceController = ControllerFactory.createPriceController();
+    const priceController = DICompositionFactory.composePriceDependencies();
     const result = await priceController.getAllPricesForPackageType({
       packageType: req.params.packageType,
     });
@@ -73,7 +74,7 @@ router.post(
   auth(),
   permit("price:create"),
   asyncHandler(async (req, res) => {
-    const priceController = ControllerFactory.createPriceController();
+    const priceController = DICompositionFactory.composePriceDependencies();
     const result = await priceController.createPrice(req.body);
     res.status(201).json(result);
   })

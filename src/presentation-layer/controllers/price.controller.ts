@@ -1,8 +1,6 @@
-import { GetPriceHistoryUseCase } from "../../application-layer/use-cases/price/get-price-history.use-case";
-import { GetCurrentPriceUseCase } from "../../application-layer/use-cases/price/get-current-price.use-case";
-import { GetAllPricesForPackageTypeUseCase } from "../../application-layer/use-cases/price/get-all-prices-for-package-type.use-case";
-import { CreatePriceUseCase } from "../../application-layer/use-cases/price/create-price.use-case";
-import { PackageTypeValue, MunicipalityId } from "../../domain-layer";
+import { GetCurrentPriceInput } from "../../application-layer/use-cases/price/get-current-price.use-case";
+import { CreatePriceInput } from "../../application-layer/use-cases/price/create-price.use-case";
+import { PackageTypeValue, MunicipalityId, PricingPeriod, Price } from "../../domain-layer";
 import {
   GetPriceHistoryRequestDto,
   GetPriceHistoryResponseDto,
@@ -15,6 +13,7 @@ import {
 } from "../types";
 import { PriceMapper } from "../mappers";
 import { BadRequestError } from "../errors/http-errors";
+import { GetPriceHistoryInput, UseCase } from "../../application-layer/use-cases";
 
 export interface IPriceController {
   getPriceHistory(
@@ -31,10 +30,10 @@ export interface IPriceController {
 
 export class PriceController implements IPriceController {
   constructor(
-    private readonly getPriceHistoryUseCase: GetPriceHistoryUseCase,
-    private readonly getCurrentPriceUseCase: GetCurrentPriceUseCase,
-    private readonly getAllPricesForPackageTypeUseCase: GetAllPricesForPackageTypeUseCase,
-    private readonly createPriceUseCase: CreatePriceUseCase
+    private readonly getPriceHistoryUseCase: UseCase<GetPriceHistoryInput, PricingPeriod[]>, //GetPriceHistoryUseCase,
+    private readonly getCurrentPriceUseCase: UseCase<GetCurrentPriceInput, Price | null>, //GetCurrentPriceUseCase,
+    private readonly getAllPricesForPackageTypeUseCase: UseCase<PackageTypeValue, Price[]>, // GetAllPricesForPackageTypeUseCase,
+    private readonly createPriceUseCase: UseCase<CreatePriceInput, Price>, // CreatePriceUseCase
   ) {}
 
   public async getPriceHistory(

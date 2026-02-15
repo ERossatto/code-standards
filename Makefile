@@ -9,15 +9,16 @@
 # Base configuration
 BASE_URL ?= http://localhost:3000
 # Paste a valid JWT here after running `make token.generate`
-TOKEN ?= eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW1vLXVzZXIiLCJwZXJtaXNzaW9ucyI6WyJtdW5pY2lwYWxpdHk6cmVhZCIsIm11bmljaXBhbGl0eTpjcmVhdGUiLCJwcmljZTpyZWFkIiwicHJpY2U6Y3JlYXRlIiwicGFja2FnZTpjcmVhdGUiXSwianRpIjoiNTk4NWFkOGQtMTc0Ny00YWY5LWI3M2ItMGQ2YmYyYmI0MGFkIiwiaWF0IjoxNzU4NjYwMjQyLCJleHAiOjE3NTg2NjM4NDJ9.In1YH16HGCHtQy4a1w09UDOVvsPDBe-pYL6oLrUG_Hs
+TOKEN ?= eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW1vLXVzZXIiLCJwZXJtaXNzaW9ucyI6WyJtdW5pY2lwYWxpdHk6cmVhZCIsIm11bmljaXBhbGl0eTpjcmVhdGUiLCJwcmljZTpyZWFkIiwicHJpY2U6Y3JlYXRlIiwicGFja2FnZTpjcmVhdGUiXSwianRpIjoiY2Q4NmY4ZWQtN2Y4MC00ODFjLWJjODQtZGZjNzVmY2ExYjZiIiwiaWF0IjoxNzcxMTc3MzUyLCJleHAiOjE3NzExODA5NTJ9.GzirmK4NDH7vARzAaBmJ6-xKUeYzEoOMSMX3IMAJ6K4
 
 # Common data
-NOW_DATE ?= 2025-09-23
+NOW_DATE ?= 2025-09-24
+MUNICIPALITY_ID ?= 342d181c-fda3-450c-a378-e5217ebaed64
 MUNICIPALITY_NAME ?= Santos
 MUNICIPALITY_CODE ?= 0013
 MUNICIPALITY_COUNTRY ?= Brazil
 PACKAGE_TYPE ?= Basic
-VALUE_CENTS ?= 1000
+VALUE_CENTS ?= 2000
 CURRENCY ?= BRL
 EFFECTIVE_DATE ?= $(NOW_DATE)
 YEAR ?= 2025
@@ -73,8 +74,8 @@ prices.history:
 	  -H "Authorization: Bearer $(TOKEN)"
 
 prices.current:
-	@echo "GET /api/prices/current?packageType=$(PACKAGE_TYPE)"
-	curl -sS "$(BASE_URL)/api/prices/current?packageType=$(PACKAGE_TYPE)" \
+	@echo "GET /api/prices/current?packageType=$(PACKAGE_TYPE)&municipalityId=$(MUNICIPALITY_ID)"
+	curl -sS "$(BASE_URL)/api/prices/current?packageType=$(PACKAGE_TYPE)&municipalityId=$(MUNICIPALITY_ID)" \
 	  -H "Authorization: Bearer $(TOKEN)"
 
 prices.by_package:

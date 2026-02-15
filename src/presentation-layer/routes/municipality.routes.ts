@@ -1,5 +1,5 @@
 import * as express from "express";
-import { ControllerFactory } from "../factories/controller.factory";
+import { DICompositionFactory } from "../../dependency-inversion.factory";
 import { auth } from "../middleware/auth.middleware";
 import { permit } from "../middleware/permit.middleware";
 import { asyncHandler } from "../utils/async-handler";
@@ -16,7 +16,7 @@ router.post(
   permit("municipality:create"),
   asyncHandler(async (req, res) => {
     const municipalityController =
-      ControllerFactory.createMunicipalityController();
+      DICompositionFactory.composeMunicipalityDependencies();
     const result = await municipalityController.createMunicipality(req.body);
     res.status(201).json(result);
   })
@@ -32,7 +32,7 @@ router.get(
   permit("municipality:read"),
   asyncHandler(async (req, res) => {
     const municipalityController =
-      ControllerFactory.createMunicipalityController();
+      DICompositionFactory.composeMunicipalityDependencies();
     const result = await municipalityController.getMunicipalityByName({
       name: req.params.name,
     });

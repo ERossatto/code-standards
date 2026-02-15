@@ -1,5 +1,5 @@
 import * as express from "express";
-import { ControllerFactory } from "../factories/controller.factory";
+import { DICompositionFactory } from "../../dependency-inversion.factory";
 import { auth } from "../middleware/auth.middleware";
 import { permit } from "../middleware/permit.middleware";
 import { asyncHandler } from "../utils/async-handler";
@@ -15,7 +15,7 @@ router.post(
   auth(),
   permit("price:create"),
   asyncHandler(async (req, res) => {
-    const packageController = ControllerFactory.createPackageController();
+    const packageController = DICompositionFactory.composePackageDependencies();
     const result = await packageController.addPackagePrice(req.body);
     res.status(201).json(result);
   })
@@ -30,7 +30,7 @@ router.post(
   auth(),
   permit("package:create"),
   asyncHandler(async (req, res) => {
-    const packageController = ControllerFactory.createPackageController();
+    const packageController = DICompositionFactory.composePackageDependencies();
     const result = await packageController.createPackage(req.body);
     res.status(201).json(result);
   })
